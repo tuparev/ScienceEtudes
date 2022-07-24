@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol Measurable { }
+public protocol Measurable: Codable { }
 
 extension Int: Measurable { }
 

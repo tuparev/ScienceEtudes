@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Measurement<ValueType: Measurable> {
+public struct Measurement<ValueType: Measurable>: Codable {
     public let value: ValueType
     public let unit: Unit
 
