@@ -14,7 +14,7 @@ public enum SensorType: Codable {
 
     // Weather
     case humidity
-    case windspeed
+    case windSpeed
     case windDirection
     case rainfall
     case dust
@@ -28,7 +28,7 @@ public enum SensorType: Codable {
     case webCam
 
     // Electricity
-
+    case voltMeter
 }
 
 public class SensorDescription: Codable {
@@ -47,4 +47,33 @@ public class SensorDescription: Codable {
 public struct SensorMeasurement: Codable {
     public let sensorReference: SensorDescription
     public var currentValue: Measurement<Double>?
+}
+
+
+//MARK: - Making types Codable and CustomStringConvertible -
+
+public extension SensorType {
+    enum CodingKeys: String, CodingKey {
+        // General
+        case temperature
+        case pressure
+
+        // Weather
+        case humidity
+        case windSpeed     = "wind_speed"
+        case windDirection = "wind_direction"
+        case rainfall
+        case dust
+        case cloudMonitor  = "cloud_monitor"
+
+        // Light
+        case light
+        case uvIndex       = "uv_index"
+        case ccdCamera     = "ccd_camera"
+        case cmosCamera    = "cmos_camera"
+        case webCam        = "web_cam"
+
+        // Electricity
+        case voltMeter     = "volt_meter"
+    }
 }
