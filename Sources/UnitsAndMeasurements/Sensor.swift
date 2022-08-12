@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum SensorType: Codable {
+public enum SensorType: String, Codable {
     // General
     case temperature
     case pressure
