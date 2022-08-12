@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Dimension: Codable {
+class Dimension: Codable {
     var name: String       // e.g. Length, Area, Mass, Density, Time, ...
     var descriptor: String // e.g. L,      L^2,  M,    M/L^3,   T,    ...
 }
