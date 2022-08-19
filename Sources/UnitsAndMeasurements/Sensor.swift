@@ -31,24 +31,26 @@ public enum SensorType: String, Codable {
     case voltMeter
 }
 
-public class SensorDescription: Codable {
+public typealias PercentageAccuracy = Double
+
+public class SensorDescription<ValueType: Measurable>: Codable {
     public var type: SensorType
 
     public var name: String?
     public var description: String?
 
-    public var minValue: Double?
-    public var maxValue: Double?
-    public var precision: Double?  //TODO: Fix this!
+    public var minValue: ValueType?
+    public var maxValue: ValueType?
+    public var accuracy: PercentageAccuracy?
     public var units: Unit
     public var measurementFrequency: Measurement<Double>?
 
     public init(type: SensorType,
                 name: String?                              = nil,
                 description: String?                       = nil,
-                minValue: Double?                          = nil,
-                maxValue: Double?                          = nil,
-                precision: Double?                         = nil,
+                minValue: ValueType?                       = nil,
+                maxValue: ValueType?                       = nil,
+                accuracy: PercentageAccuracy?              = nil,
                 units: Unit,
                 measurementFrequency: Measurement<Double>? = nil) {
         self.type                 = type
@@ -56,15 +58,15 @@ public class SensorDescription: Codable {
         self.description          = description
         self.minValue             = minValue
         self.maxValue             = maxValue
-        self.precision            = precision
+        self.accuracy             = accuracy
         self.units                = units
         self.measurementFrequency = measurementFrequency
     }
 }
 
-public struct SensorMeasurement: Codable {
-    public let sensorReference: SensorDescription
-    public var currentValue: Measurement<Double>?
+public struct SensorMeasurement<ValueType: Measurable>: Codable {
+    public let sensorReference: SensorDescription<ValueType>
+    public var currentValue: Measurement<ValueType>?
 }
 
 
@@ -103,7 +105,7 @@ public extension SensorDescription {
         case description
         case minValue             = "min_value"
         case maxValue             = "max_value"
-        case precision
+        case accuracy
         case units
         case measurementFrequency = "measurement_frequency"
     }
