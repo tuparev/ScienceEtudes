@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Unit: Codable {
+public class Unit: Codable {
     public internal(set) var dimension: String
     public internal(set) var symbol: String
 
