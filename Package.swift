@@ -10,6 +10,8 @@ let package = Package(
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(name: "UnitsAndMeasurements", targets: ["UnitsAndMeasurements"]),
+        .library(name: "CoreMaths", targets: ["CoreMaths"]),
+        .library(name: "CoreAstronomy", targets: ["CoreAstronomy"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -19,8 +21,10 @@ let package = Package(
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
-        .target( name: "UnitsAndMeasurements", dependencies: [], path: "Sources/UnitsAndMeasurements"),
-        
+        .target(name: "UnitsAndMeasurements", dependencies: [],            path: "Sources/UnitsAndMeasurements"),
+        .target(name: "CoreMaths",            dependencies: [],            path: "Sources/CoreMaths"),
+        .target(name: "CoreAstronomy",        dependencies: ["CoreMaths"], path: "Sources/Astronomy/CoreAstronomy"),
+
         .testTarget(name: "UnitsAndMeasurementsTests",dependencies: ["UnitsAndMeasurements"], path: "Tests/UnitsAndMeasurements"),
     ]
 )
