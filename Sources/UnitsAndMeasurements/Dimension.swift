@@ -3,6 +3,7 @@
 //  
 //
 //  Created by Georg Tuparev on 26/07/2022.
+//  Copyright © See Framework's LICENSE file
 //
 
 import Foundation
