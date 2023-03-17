@@ -14,9 +14,12 @@
 import Foundation
 import SoftwareEtudesUtilities
 
+public typealias JulianDay = Double
+
 public extension Date {
 
-    init(julianDay: Double) {
+
+    @inlinable init(julianDay: JulianDay) {
         precondition(julianDay >= 0, "Julian Dates must be positive.")
 
         let epochSeconds = round((julianDay - 2_440_587.5) * 86400)
@@ -28,7 +31,7 @@ public extension Date {
     ///
     /// The current Julian Period began at noon on the first day of the year -4712 (4713 BCE), making the year 2000 in
     /// the Julian calendar year 6713 of the current Julian Period.
-    var julianDay: Double {
+    var julianDay: JulianDay {
         var Y = Double(self.year)
         var M = Double(self.month)
         let D = Double(self.day) + (self.fractionalHour / 24)
@@ -46,14 +49,14 @@ public extension Date {
     /// The date's Modified Julian Day (MJD).
     ///
     /// The epoch of the MJD system is at midnight on November 17, 1858. That is, the MJD of 1858-11-17 00:00:00 is 0.0.
-    var modifiedJulianDay: Double { self.julianDay - 2_400_000.5 }
+    var modifiedJulianDay: JulianDay { self.julianDay - 2_400_000.5 }
 
 }
 
 public extension Date {
 
     /// The date's year (in the Gregorian calendar) and fraction of progress therethrough.
-    var fractionalYear: Double {
+    var fractionalYear: JulianDay {
         let daysInYear   = (self.isInLeapYear) ? 366.0 : 365.0
         let components   = DateComponents(year: self.year, month: 1, day: 1, hour: 0, minute: 0, second: 0)
         let januaryFirst = Calendar.gregorianUTC.date(from: components)!
