@@ -31,7 +31,7 @@ public extension Date {
     ///
     /// The current Julian Period began at noon on the first day of the year -4712 (4713 BCE), making the year 2000 in
     /// the Julian calendar year 6713 of the current Julian Period.
-    var julianDay: JulianDay {
+    @inlinable var julianDay: JulianDay {
         var Y = Double(self.year)
         var M = Double(self.month)
         let D = Double(self.day) + (self.fractionalHour / 24)
@@ -49,7 +49,7 @@ public extension Date {
     /// The date's Modified Julian Day (MJD).
     ///
     /// The epoch of the MJD system is at midnight on November 17, 1858. That is, the MJD of 1858-11-17 00:00:00 is 0.0.
-    var modifiedJulianDay: JulianDay { self.julianDay - 2_400_000.5 }
+    @inlinable var modifiedJulianDay: JulianDay { self.julianDay - 2_400_000.5 }
 
 }
 
