@@ -19,6 +19,9 @@ public typealias JulianDay = Double
 public extension Date {
 
 
+    /// Creates a new ``Date`` from a `JulianDay`
+    ///
+    /// - Parameter julianDay: should be a positive ``Double``
     @inlinable init(julianDay: JulianDay) {
         precondition(julianDay >= 0, "Julian Dates must be positive.")
 
