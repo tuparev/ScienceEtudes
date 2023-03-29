@@ -12,7 +12,7 @@
 //
 
 import Foundation
-import SoftwareEtudesUtilities
+//import SoftwareEtudesUtilities
 
 public typealias JulianDay = Double
 
@@ -48,22 +48,31 @@ public extension Date {
 
         return JD
     }
+    
+    /// The date's Julian Day (JD), expressed as a decimal number of days since the beginning of the current Julian Period.
+    ///
+    /// This is a convenience method that accesses the same value as ``julianDay``.
+    @inlinable var jd: JulianDay { self.julianDay }
 
     /// The date's Modified Julian Day (MJD).
     ///
     /// The epoch of the MJD system is at midnight on November 17, 1858. That is, the MJD of 1858-11-17 00:00:00 is 0.0.
     @inlinable var modifiedJulianDay: JulianDay { self.julianDay - 2_400_000.5 }
-
+    
+    /// The date's Modified Julian Day (MJD).
+    ///
+    /// This is a convenience method that accesses the same value as ``modifiedJulianDay``.
+    @inlinable var mjd: JulianDay { self.modifiedJulianDay }
 }
 
-public extension Date {
-
-    /// The date's year (in the Gregorian calendar) and fraction of progress therethrough.
-    var fractionalYear: JulianDay {
-        let daysInYear   = (self.isInLeapYear) ? 366.0 : 365.0
-        let components   = DateComponents(year: self.year, month: 1, day: 1, hour: 0, minute: 0, second: 0)
-        let januaryFirst = Calendar.gregorianUTC.date(from: components)!
-
-        return Double(self.year) + ((self.julianDay - januaryFirst.julianDay) / daysInYear)
-    }
-}
+//public extension Date {
+//
+//    /// The date's year (in the Gregorian calendar) and fraction of progress therethrough.
+//    var fractionalYear: JulianDay {
+//        let daysInYear   = (self.isInLeapYear) ? 366.0 : 365.0
+//        let components   = DateComponents(year: self.year, month: 1, day: 1, hour: 0, minute: 0, second: 0)
+//        let januaryFirst = Calendar.gregorianUTC.date(from: components)!
+//
+//        return Double(self.year) + ((self.julianDay - januaryFirst.julianDay) / daysInYear)
+//    }
+//}
