@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreMaths
-import Time
 
 extension GeographicCoordinate {
     func siderealTime(_ type: SiderealTime) -> Angle {

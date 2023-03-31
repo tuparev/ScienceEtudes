@@ -12,7 +12,6 @@
 //
 
 import Foundation
-//import SoftwareEtudesUtilities
 
 public typealias JulianDay = Double
 

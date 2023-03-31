@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreMaths
-import Time
 
 struct EquatorialCoordinate {
     let rightAscension: Angle
@@ -36,7 +35,9 @@ struct EquatorialCoordinate {
     }
     
     func hourAngle(for longitude: Angle, at time: Date) -> Angle {
-        time.siderealTime(.localApparent(longitude: longitude.degrees)) - self.rightAscension
+        let LST = time.siderealTime(.localApparent(longitude: longitude.degrees))
+        let RA = self.rightAscension
+        return LST - RA
     }
     
     func hourAngle(for coordinate: GeographicCoordinate, at time: Date) -> Angle {
@@ -44,16 +45,24 @@ struct EquatorialCoordinate {
     }
     
     func convertToHorizontal(for coordinate: GeographicCoordinate, at time: Date) -> HorizontalCoordinate {
-        let H = self.hourAngle(for: coordinate, at: time).radians
-        let φ = coordinate.latitude.radians
+        let h = self.hourAngle(for: coordinate, at: time).radians
         let δ = self.declination.radians
+        let φ = coordinate.latitude.radians
+
+        let A_z = Angle(radians: atan(sin(h) / (cos(h)*sin(φ) - tan(δ)*cos(φ))), type: .longitude)
+        let a = Angle(radians: asin(sin(φ)*sin(δ) + cos(φ)*cos(δ)*cos(h)), type: .latitude)
+
+        return HorizontalCoordinate(altitude: a, azimuth: A_z, referenceFrame: coordinate)
         
-        let tan_A = sin(H) / (cos(H)*sin(φ) - tan(δ)*cos(φ))
-        let sin_h = sin(φ)*sin(δ) + cos(φ)*cos(δ)*cos(H)
+//        let h = self.hourAngle(for: coordinate, at: time).radians
+//        let δ = self.declination.radians
+//        let φ = coordinate.latitude.radians
+//
+//        let a = Angle(radians: asin(sin(δ)*sin(φ) + cos(δ)*cos(h)*cos(φ)))
+//        var A_z = Angle(radians: acos((sin(δ)*cos(φ) - cos(δ)*cos(h)*sin(φ)) / cos(a.radians)))
+//        A_z = sin(A_z.radians) > 0 ? A_z : 360 - A_z
+//
+//        return HorizontalCoordinate(altitude: a, azimuth: A_z, referenceFrame: coordinate)
         
-        let A = Angle(radians: atan(tan_A), type: .longitude)
-        let h = Angle(radians: asin(sin_h), type: .latitude)
-        
-        return HorizontalCoordinate(altitude: h, azimuth: A, referenceFrame: coordinate)
     }
 }

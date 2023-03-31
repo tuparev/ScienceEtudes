@@ -7,7 +7,7 @@
 
 import XCTest
 import CoreMaths
-@testable import Time
+@testable import Astronomy
 
 final class TimeSystemTests: XCTestCase {
     func testGreenwichMeanSiderealTime() throws {
@@ -15,7 +15,7 @@ final class TimeSystemTests: XCTestCase {
         let trueSidereal = Angle("13h10m46.3668s")!
         let sidereal = testDate.siderealTime(.greenwichMean)
         
-        XCTAssertEqual(sidereal.degrees, trueSidereal.degrees, accuracy: 1e-6)
+        XCTAssertEqual(sidereal.arcseconds, trueSidereal.arcseconds, accuracy: 1e-3)
     }
     
     func testGreenwichApparentSiderealTime() throws {
@@ -23,6 +23,6 @@ final class TimeSystemTests: XCTestCase {
         let trueSidereal = Angle("13h10m46.1351s")!
         let sidereal = testDate.siderealTime(.greenwichApparent)
 
-        XCTAssertEqual(sidereal.degrees, trueSidereal.degrees, accuracy: 1e-6)
+        XCTAssertEqual(sidereal.arcseconds, trueSidereal.arcseconds, accuracy: 1e-3)
     }
 }

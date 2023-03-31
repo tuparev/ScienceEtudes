@@ -21,13 +21,18 @@ public extension Date {
         switch type {
         case .greenwichMean:
             // TODO: This is only accurate to the milli-degree. Something is wrong.
-            return earthRotationAngle - accumulatedPrecession
+            let ERA = self.earthRotationAngle
+            let p = self.accumulatedPrecession
+            return ERA - p
         case .greenwichApparent:
-            return siderealTime(.greenwichMean) + equationOfTheEquinoxes
+            let GMST = siderealTime(.greenwichMean)
+            return GMST + equationOfTheEquinoxes
         case .localMean(let lon):
-            return siderealTime(.greenwichMean) + Angle(degrees: lon)
+            let GMST = siderealTime(.greenwichMean)
+            return GMST + Angle(degrees: lon, type: .longitude)
         case .localApparent(let lon):
-            return siderealTime(.greenwichApparent) + Angle(degrees: lon)
+            let GAST = siderealTime(.greenwichApparent)
+            return GAST + Angle(degrees: lon, type: .longitude)
         }
     }
     
@@ -36,7 +41,7 @@ public extension Date {
         let angle = Angle(arcsecond: -0.014506) - t * Angle(arcsecond: 4612.156_534) -
                pow(t, 2) * Angle(arcsecond: 1.391_5817) + pow(t, 3) * Angle(arcsecond: 0.000_000_44) +
                pow(t, 4) * Angle(arcsecond: 0.000_029_956)
-        return angle.wrap(into: 0..<360)
+        return Angle(degree: angle.degrees, type: .longitude)
     }
     
     var equationOfTheEquinoxes: Angle {

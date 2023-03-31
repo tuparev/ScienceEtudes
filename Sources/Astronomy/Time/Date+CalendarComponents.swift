@@ -8,9 +8,6 @@
 import Foundation
 
 public extension Date {
-    
-    
-    
     /// A boolean indicating whether or not the date occurs in a leap year.
     var isInLeapYear : Bool { (year % 100) == 0 ? (year % 400) == 0 : (year % 4) == 0 }
     

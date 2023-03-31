@@ -6,31 +6,30 @@
 //
 
 import XCTest
-@testable import Time
 @testable import CoreMaths
-@testable import Coordinates
+@testable import Astronomy
 
 final class CoordinateTests: XCTestCase {
     
     func testEquatorialToHorizontal() throws {
-        let components = DateComponents(year: 1472, month: 8, day: 18, hour: 16, minute: 47, second: 23)
+        let components = DateComponents(year: 1987, month: 4, day: 10, hour: 19, minute: 21, second: 00)
         let date = Calendar.gregorianUTC.date(from: components)!
         
-        let lat = Angle(degrees: 77.2069702520977, type: .latitude)
-        let lon = Angle(degrees: 118.639627806683, type: .longitude)
-        let location = GeographicCoordinate(latitude: lat.degrees, longitude: lon.degrees)
+        let lat = Angle("+38d55m18s", type: .latitude)!
+        let lon = Angle("-77d03m56s",  type: .longitude)!
+        let location = GeographicCoordinate(latitude: lat, longitude: lon)
         
-        let α = Angle(hour: 9.9129372, type: .longitude)
-        let δ = Angle(degrees: 156.304108, type: .latitude)
+        let α = Angle("+23h09m16.641s", type: .longitude)!
+        let δ = Angle("-06d43m11.610s", type: .latitude)!
         let coordinate = EquatorialCoordinate(rightAscension: α, declination: δ)
         
         let converted = coordinate.convertToHorizontal(for: location, at: date)
         
-        let trueAlt = Angle("+27d22m50.80s", type: .latitude)!
-        let trueAz = Angle("+76d17m21.67s", type: .longitude)!
+        let trueAlt = Angle(degree: 15.1249, type: .latitude)
+        let trueAz = Angle(degree: 68.0337, type: .longitude)
         
-        XCTAssertEqual(converted.altitude, trueAlt)
-        XCTAssertEqual(converted.azimuth, trueAz)
+        XCTAssertEqual(converted.altitude.arcseconds, trueAlt.arcseconds, accuracy: 1e-3)
+        XCTAssertEqual(converted.azimuth.arcseconds, trueAz.arcseconds, accuracy: 1e-3)
     }
     
 //    func testDateFromJulianDate() throws {
