@@ -9,19 +9,15 @@
 import CoreLocation
 import CoreMaths
 
-//typealias GeographicCoordinate = CLLocation
-
 public struct GeographicCoordinate {
-    internal let location: CLLocation
-
     /// The latitude of the coordinate.
-    var latitude: Angle { Angle(degrees: location.coordinate.latitude) }
+    let latitude: Angle
     /// The longitude of the coordinate. Positive values extend eastward, while negative values extend to the west.
-    var longitude: Angle { Angle(degrees: location.coordinate.longitude) }
+    let longitude: Angle
     /// The altitude above sea level at the coordinate's location.
-    var altitude: Double { location.altitude }
+    let altitude: Double
     /// The time of the coordinate.
-    var time: Date { location.timestamp }
+    let time: Date
 
     init(latitude: Double, longitude: Double, altitude: Double = 0, time: Date = .now) {
         let coord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
@@ -34,7 +30,9 @@ public struct GeographicCoordinate {
     }
 
     init(location: CLLocation) {
-        self.location = location
+        self.latitude = Angle(degree: location.coordinate.latitude)
+        self.longitude = Angle(degree: location.coordinate.longitude)
+        self.altitude = location.altitude
+        self.time = location.timestamp
     }
-
 }
