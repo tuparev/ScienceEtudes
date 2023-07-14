@@ -38,8 +38,11 @@ public extension Date {
     /// The nanosecond component of the date, in UTC.
     var nanosecond: Int { Calendar.gregorianUTC.component(.nanosecond, from: self) }
     
-    /// The time of day expressed as a decimal number of hours.
-    var fractionalHour: Double { Double(hour) + Double(minute)/60 + Double(second)/3600 + Double(nanosecond)/1e9/3600 }
+    /// The fraction of the current hour that has elapsed.
+    var hourFraction: Double { Double(minute)/60 + Double(second)/3600 + Double(nanosecond)/1e9/3600 }
+    
+    /// The fraction of the current day that has elapsed.
+    var dayFraction: Double { (Double(hour) + hourFraction) / 24 }
     
     /// The date's year (in the Gregorian calendar) and fraction of progress therethrough.
     var fractionalYear: Double {

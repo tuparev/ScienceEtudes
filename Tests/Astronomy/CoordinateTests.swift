@@ -32,13 +32,6 @@ final class CoordinateTests: XCTestCase {
         XCTAssertEqual(converted.azimuth.arcseconds, trueAz.arcseconds, accuracy: 1e-3)
     }
     
-//    func testDateFromJulianDate() throws {
-//        let components = DateComponents(year: 333, month: 1, day: 27, hour: 12, minute: 0, second: 0, nanosecond: 0)
-//        let someDate = Calendar.gregorianUTC.date(from: components)!
-//        let sameDate = Date(julianDay: 1842713.0)
-//        
-//        XCTAssertEqual(someDate, sameDate)
-//    }
 //    
 //    //    func testPerformanceExample() throws {
 //    //        // This is an example of a performance test case.
