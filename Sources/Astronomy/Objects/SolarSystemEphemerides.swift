@@ -81,6 +81,8 @@ extension OrbitingBody {
         
         /// The number of centuries past J2000.
         let T = (date.jd - Epoch.J2000.jd) / 36525
+        
+        // Calculate orbital elements at current time
         e.a += rates.a * T
         e.e += rates.e * T
         e.I += rates.I * T
@@ -88,7 +90,7 @@ extension OrbitingBody {
         e.lonPeri += rates.lonPeri * T
         e.lonNode += rates.lonNode * T
         
-        // Mean anomaly
+        /// Mean anomaly
         let M = (e.meanLongitude - e.longitudeOfPerihelion).wrap(into: -180...180)
         
         // Calculate eccentric anomaly
